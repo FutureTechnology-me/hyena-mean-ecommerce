@@ -1,0 +1,71 @@
+
+
+
+
+<row>
+<div ng-controller="mainController">
+
+  <row>
+
+
+  <div class="col-md-2 col-md-offset-9 col-sm-2 col-sm-offset-8 col-xs-offset-8  col-xs-3 shopping-cart-div" >
+      <ngcart-summary ng-click="toCart()" class="shopping-cart-link"></ngcart-summary>
+  </div>
+  </row>
+
+
+
+    
+</div>
+</row>
+
+<row>
+<div ng-controller="productController">
+  
+  <span><h3>{{ department }} <span ng-show="subcategory"> > {{ subcategory }}</span></h3> 
+
+      
+       <!--Navigation template-->
+       <row>
+        <div class="col-sm-12">
+
+          <ul class="nav nav-pills">
+            <li role="presentation"  ng-click="resetFilter()"><a class="angular-link">Show All</a></li>
+            <!--For each category in categories make a dropdown -->
+            <li ng-repeat="category in categoriesInfo" ng-init="parentIndex = $index" role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                {{categoriesInfo[parentIndex]}} <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <!--First option is separated category name which links to a listing of everything in the category-->
+                <li><a ng-click="setCategory(categoriesInfo[$index]);" class="angular-link">{{categoriesInfo[parentIndex]}}</a></li>
+                <li role="separator" class="divider"></li>
+                <!--For each subcategory in the category add a link which shows category filtered by subcategory-->
+                <li ng-repeat="subcategories in subcategoriesInfo[parentIndex]"><a ng-click="setSubcategory(categoriesInfo[parentIndex], subcategoriesInfo[parentIndex][$index]);" class="angular-link">{{subcategoriesInfo[parentIndex][$index]}}</a></li>
+              </ul>
+            </li>
+
+          </ul>
+      
+        </div>
+        </row>
+        <row class="row-eq-height">
+        <div ng-repeat="product in products | filter: filterFunction" class=" col-sm-4 col-md-3">
+          <div class="thumbnail">
+            <img src="{{ product.imageUrl }}" ng-click="details(product);" class="angular-link"></img>
+            <div class="caption tiles">
+              <h4 class="angular-link oneliner" ng-click="details(product);">{{ product.productName }}</h4>
+              
+
+              <span><h4 style="float : right">${{ product.price }}</h4> <ngcart-addtocart id="{{ product._id }}" name="{{ product.productName }}" price="{{product.price}}" quantity="1" quantity-max="30" data="product" >Add to cart</ngcart-addtocart></span>
+            </div>
+          </div>
+        </div>
+        </row>
+
+
+
+</div>
+
+
+

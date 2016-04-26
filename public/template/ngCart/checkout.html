@@ -1,0 +1,36 @@
+
+<div ng-if="service=='http' || service == 'log'">
+    <button class="btn btn-primary" ng-click="checkout()" ng-disabled="!ngCart.getTotalItems()" ng-transclude>Checkout</button>
+</div>
+
+
+<div ng-if="service=='paypal'">
+
+    <form ng-controller="checkoutController" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-show="ngCart.getTotalItems()">
+        <input type="hidden" name="cmd" value="_cart" />
+        <input type="hidden" name="upload" value="1" />
+        <input type="hidden" name="business" value="" />  <!-- Put your paypal email in this value -->
+        <input type="hidden" name="lc" value="CA" />
+        <input type="hidden" name="item_name" value="{{ settings.paypal.item_name }}" />
+        <input type="hidden" name="item_number" value="{{ settings.paypal.item_number }}" />
+        <input type="hidden" name="amount" value="{{ ngCart.getSubTotal()}}" />
+        <input type="hidden" name="currency_code" value="CAD" />
+        <input type="hidden" name="button_subtype" value="services" />
+        <input type="hidden" name="no_note" value="{{ settings.paypal.no_note }}" />
+        <input type="hidden" name="tax_cart" value="{{ carttax }}" />
+        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest" />
+        <span ng-repeat="item in items">
+        <input type="hidden" name="item_name_{{$index +1}}" value="{{ items[$index].name }}"/>
+        <input type="hidden" name="shipping_{{$index +1}}" value="{{ items[$index].shipping }}"/>
+        <input type="hidden" name="item_number_{{$index +1}}" value="{{ items[$index].id }}"/>
+        <input type="hidden" name="amount_{{$index +1}}" value="{{ items[$index].price }}"/>
+        <input type="hidden" name="quanitity_{{$index +1}}" value="{{ items[$index].quantity }}"/>    
+        </span>
+
+    <h1> {{ shippingTotal }}</h1>
+        
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+    </form>
+
+</div>

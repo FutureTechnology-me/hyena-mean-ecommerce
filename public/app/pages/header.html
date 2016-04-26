@@ -1,0 +1,16 @@
+
+<a class="navbar-brand" href="/#/">Hyena Ecommerce SPA</a>
+
+<form class="navbar-form navbar-right">
+    <span ng-show="!displayLogin">Hello <span ng-click="toProfile()" class="angular-link">{{ user }}</span></span>
+    <button ng-show="displayLogin"ng-click="toLogin()" type="button" class="btn btn-primary">Login</button>
+    <button ng-show="displayLogin" ng-click="toRegister()" type="button" class="btn btn-default">Register</button>
+    <button ng-show="!displayLogin" ng-click="logout()" type="button" class="btn btn-default">Logout</button>
+    <button ng-show="!displayLogin" ng-click="secret()" type="button" class="btn btn-default">Secret</button>
+    <button ng-show="!displayLogin" ng-click="getUser()" type="button" class="btn btn-default">Check User</button>
+    
+</form>
+
+
+
+

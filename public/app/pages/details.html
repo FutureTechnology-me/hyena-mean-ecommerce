@@ -1,0 +1,68 @@
+        <div class="col-md-12">
+            <row>
+              <div class="col-md-2 col-md-offset-9 col-sm-2 col-sm-offset-8 col-xs-offset-8  col-xs-3 shopping-cart-div" >
+                  <ngcart-summary ng-click="toCart()" class="shopping-cart-link"></ngcart-summary>
+              </div>
+            </row>
+            <div class="panel body">
+              <row>
+                <div class="col-md-6">
+                  
+                  <img src="/img/placeholder.png" style="width: 100%"></img>
+                </div>
+                <div class="col-md-6">
+                  <h1> {{ thisProduct.productName }} </h1>
+                  <p> {{ thisProduct.productDescription }} </p>
+                  
+                  
+                  
+                  <table class="table table-striped">
+                    <tr>
+                      <td style="text-align: right"> name : </td>
+                      <td style="text-align: left">{{ thisProduct.productName }}</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right"> color : </td>
+                      <td style="text-align: left">{{ thisProduct.color }}</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right">material : </td>
+                      <td style="text-align: left">{{ thisProduct.productMaterial }}</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right">department : </td>
+                      <td style="text-align: left">{{ thisProduct.department }}</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right"> classification : </td>
+                      <td style="text-align: left"> {{thisProduct.productAdjective}} </td>
+                    </tr>
+                    
+                  </table>
+                  
+                  <div style="float: left"><button ng-click="backShopping()" class="btn btn-default">Back to shopping</button></div>
+                  <span style="float: right"><h4>${{ thisProduct.price }}</h4> <ngcart-addtocart id="{{ thisProduct._id }}" name="{{ thisProduct.productName }}" price="{{thisProduct.price}}" quantity="1" quantity-max="30" data="thisProduct" >Add to cart</ngcart-addtocart></span>
+                </div>
+                
+              </row>
+            </div>
+
+        </div>
+
+
+
+        <row class="row-eq-height" ng-show="department">
+          <span><h4>more in {{ department }} <span ng-show="subcategory"></h4>
+        <div ng-repeat="product in products | filter: filterFunction" class=" col-sm-4 col-md-3">
+          <div class="thumbnail">
+            
+            <img src="{{ product.imageUrl }}" ng-click="details(product);" class="angular-link"></img>
+            <div class="caption tiles">
+              <h4 class="angular-link oneliner" ng-click="details(product);">{{ product.productName }}</h4>
+              
+
+              <span><h4 style="float : right">${{ product.price }}</h4> <ngcart-addtocart id="{{ product._id }}" name="{{ product.productName }}" price="{{product.price}}" quantity="1" quantity-max="30" data="product" >Add to cart</ngcart-addtocart></span>
+            </div>
+          </div>
+        </div>
+        </row>

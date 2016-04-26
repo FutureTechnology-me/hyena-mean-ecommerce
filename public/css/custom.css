@@ -1,0 +1,99 @@
+.hide-me {
+    display: none;    
+}
+.show-me {
+
+}
+
+.container {
+    margin-top: 50px !important;
+}
+
+.angular-link {
+     cursor:pointer !important;
+     color:#337ab7;
+     margin-right: 5px;
+
+}
+
+.shopping-cart-link {
+    cursor:pointer;
+    white-space: nowrap;
+}
+
+.shopping-cart-div {
+    
+    position: fixed;
+    z-index: +10;
+    margin-top: -45px;
+}
+
+.addtocart {
+    float: right;
+}
+
+
+.tiles {
+    min-height: 100px !important;
+
+}
+
+
+.oneliner {
+    white-space: nowrap;
+
+}
+
+.center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  width: 50%; 
+  height: 50%;
+  min-width: 400px;
+  max-width: 600px;
+  padding: 40px;
+
+    
+    
+}
+
+#rightbutton {
+    float: right;
+}
+
+
+@media screen and (min-width: 770px) {
+.oneliner {
+    font-size: 1.5vw;
+}
+
+}
+
+@media screen and (min-width: 1000px) {
+.oneliner {
+
+    font-size: 1.3vw;
+}
+
+.removetext {
+    font-size: 1vw;
+}
+}
+
+@media screen and (max-width: 769px) {
+.removetext {
+    font-size: 3vw !important;
+}
+
+}
+
+@media screen and (max-width: 1000px) {
+.removetext {
+    font-size: 1.2vw;
+}
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

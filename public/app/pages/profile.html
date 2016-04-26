@@ -1,0 +1,84 @@
+<div ng-show="profileData">
+<div ng-show="profileData.notAuth" class="alert alert-warning" role="alert">{{ profileData.errorMessage}}</div>
+
+<div ng-hide="showEdit || profileData.notAuth" class="col-md-6 col-md-offset-3" ng-cloak>
+
+
+<h3>Hello {{ profileData.fname }}</h3>
+    <table class="table table-striped">
+        <tr>
+          <td style="text-align: right"> first name : </td>
+          <td style="text-align: left">{{ profileData.fname }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: right"> last name : </td>
+          <td style="text-align: left">{{ profileData.lname }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">Address : </td>
+          <td style="text-align: left">{{ profileData.address }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">Country : </td>
+          <td style="text-align: left">{{ profileData.country }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: right"> City : </td>
+          <td style="text-align: left"> {{ profileData.city }} </td>
+        </tr>
+        <tr>
+        <td style="text-align: right"> Postal Code : </td>
+          <td style="text-align: left"> {{ profileData.postal }} </td>
+        </tr>
+    </table>
+    <button class="btn btn-info btn-large" ng-hide ng-click="profileEdit()" style="float: right">Edit</button>
+</div>
+
+ </div>                 
+
+
+
+ <div ng-show="showEdit" class="col-md-6 col-md-offset-3">
+    
+    <h1>Profile</h1>
+                                        <!--/profile    UPDATE      ????-->
+    <form action="/profileInfo/?_method=PUT" method="POST">
+        <!--<div class="form-group">-->
+        <!--<label for="userInput">User Name</label>    -->
+        <!--<input type="text" class="form-control" name="username" id="userInput" placeholder="username">-->
+        <!--</div>-->
+        <div class="form-group">
+        <label for="fnInput">First Name</label>
+        <input type="text" class="form-control" name="fname" ng-model="profileData.fname" id="fnInput" placeholder="first name">    
+        </div>
+        <div class="form-group">
+        <label for="lninput">Last Name</label>
+        <input type="text" class="form-control" name="lname" ng-model="profileData.lname" id="lninput" placeholder="Last name">    
+        </div>
+        <div class="form-group">
+        <label for="addinput">Address</label>
+        <input type="text" class="form-control" name="address" ng-model="profileData.address" id="addinput" placeholder="Address">    
+        </div>
+        <div class="form-group">
+        <label for="countryinput">Country</label>
+        <input type="text" class="form-control" name="country" ng-model="profileData.country" id="countryinput" placeholder="Country">    
+        </div>
+        <div class="form-group">
+        <label for="cityinput">City</label>
+        <input type="text" class="form-control" name="city" ng-model="profileData.city" id="cityinput" placeholder="City">    
+        </div>
+        <div class="form-group">
+        <label for="postalinput">Postal Code</label>
+        <input type="text" class="form-control" name="postalinput" ng-model="profileData.postal" id="postalcode" placeholder="Postal Code">    
+        </div>
+        <div class="form-group">
+        <button class="btn btn-primary btn-large" style="float: right">Save changes</button>
+        
+        </div>
+    </form>
+    <button class="btn btn-danger btn-large" ng-click="toProfile()" style="float: left">Back</button>
+    
+ </div>
+
+
+

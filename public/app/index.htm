@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="commerceApp">
+  <head>
+    <title> Hyena Ecommerce SPA </title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+  </head>
+  <body>
+    
+      <header>
+          <nav class="navbar navbar-default ">
+  			        <span ng-controller="headerController">
+                    <span ng-include="header.url"></span>
+                </span>
+			    </nav>
+		  </header>
+		  
+      <div class="container">
+              <div ng-view></div>
+  		</div>
+  		
+  </body>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script src="js/ngCart/dist/ngCart.js"></script>
+        <script src="//code.angularjs.org/1.3.0-rc.2/angular-route.min.js"></script>
+        <script src="//code.angularjs.org/1.3.0-rc.2/angular-resource.min.js"></script>
+        <script src="app/app.js"></script>
+        <script src="app/routes.js"></script>
+        <script src="app/services.js"></script>
+        <script src="app/controllers.js"></script>
+        
+        
+
+</html>
