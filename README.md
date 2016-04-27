@@ -20,14 +20,5 @@ OURSECRET : the secret you wish to use to generate user salt/hash
 
 You'll want to update checkout.html to use the desired paypal email. 
 
-You'll want to expand your RESTful routes to match whichever features you desire. 
-
-Though the application allows for user registration/login/logout/authentication + Get/Update routes for
-user profile, the user and commerce aspects of the application are independent each other. 
-
-Simply cut out features you don't want and expand on the ones you do want. 
-
-This may not be the prettiest/best MEAN ecommerce module, but it beats writing everything from scratch if you're in a hurry. 
-
-
+I'll improve this as soon as I can.
 
