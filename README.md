@@ -22,3 +22,4 @@ You'll want to update checkout.html to use the desired paypal email.
 
 I'll improve this as soon as I can.
 
+sample deployment at https://young-reef-40477.herokuapp.com/#/
