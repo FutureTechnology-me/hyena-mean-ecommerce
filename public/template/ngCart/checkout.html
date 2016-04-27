@@ -9,7 +9,7 @@
     <form ng-controller="checkoutController" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-show="ngCart.getTotalItems()">
         <input type="hidden" name="cmd" value="_cart" />
         <input type="hidden" name="upload" value="1" />
-        <input type="hidden" name="business" value="" />  <!-- Put your paypal email in this value -->
+        <input type="hidden" name="business" value="jade.breed.mmp@gmail.com" />  <!-- Put your paypal email in this value -->
         <input type="hidden" name="lc" value="CA" />
         <input type="hidden" name="item_name" value="{{ settings.paypal.item_name }}" />
         <input type="hidden" name="item_number" value="{{ settings.paypal.item_number }}" />
