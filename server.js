@@ -12,7 +12,9 @@ var express = require("express"),
     Product = require("./models/product"),
     faker = require('faker');
 
+
 mongoose.connect(process.env.DATABASEURL);
+
 
 //////////////////////////////////////////////////////////////////
 ////////////Initialize express
@@ -25,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(methodOverride("_method"));
-// seedDB();
+//seedDB();
 
 //////////////////////////////////////////////////////////////////
 ////////////Passport configuration
