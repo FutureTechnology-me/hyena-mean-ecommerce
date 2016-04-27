@@ -18,6 +18,8 @@ DATABASEURL : the url for your mongodb
 
 OURSECRET : the secret you wish to use to generate user salt/hash
 
+You'll want to update checkout.html to use the desired paypal email. 
+
 You'll want to expand your RESTful routes to match whichever features you desire. 
 
 Though the application allows for user registration/login/logout/authentication + Get/Update routes for
