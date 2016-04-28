@@ -4,7 +4,6 @@
   "description": "MEAN stack ecommerce template with placeholder seed.",
   "main": "server.js",
   "dependencies": {
-    "async": "^0.2.10",
     "body-parser": "^1.15.0",
     "ejs": "^2.4.1",
     "express": "^3.21.2",
@@ -15,8 +14,7 @@
     "mongoose": "^4.4.5",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^4.0.0",
-    "socket.io": "^0.9.17"
+    "passport-local-mongoose": "^4.0.0"
   },
   "devDependencies": {},
   "scripts": {
