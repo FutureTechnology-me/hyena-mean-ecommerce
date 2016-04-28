@@ -12,7 +12,6 @@ var express = require("express"),
     Product = require("./models/product"),
     faker = require('faker');
 
-
 mongoose.connect(process.env.DATABASEURL);
 
 
@@ -76,6 +75,7 @@ app.post("/register", function(req, res){
 
 })
 
+
 // show login form --- handled by angular 
 // app.get("/login", function(req,res){
 //     res.render("login");
@@ -110,15 +110,8 @@ function isLoggedIn(req, res, next){
 }
 
 //////////////////////////////////////////////////////////////////
-////////////Other routes
+////////////Profile routes
 //////////////////////////////////////////////////////////////
-
-//  "/" => render index view
-app.get("/", function(req, res){
-   res.sendfile('./public/app/index.htm'); // load the single view file (angular will handle the page changes on the front-end)
-});
-
-
 //user profile get route
 app.get("/profileInfo",isLoggedIn, function(req, res){
    console.log(req.user);
@@ -168,6 +161,24 @@ app.put("/profileInfo",isLoggedIn, function(req, res){
 
 });
 
+// DESTROY USER ACCOUNT ROUTE
+app.delete("/deleteprofile", isLoggedIn, function(req, res){
+    User.findByIdAndRemove(req.user._id, function(err){
+       if(err){
+            res.send(err);
+       } else {
+           res.send("sucessfully deleted profile");
+       }
+    });
+});
+//////////////////////////////////////////////////////////////////
+////////////Other routes
+//////////////////////////////////////////////////////////////
+
+//  "/" => render index view
+app.get("/", function(req, res){
+   res.sendfile('./public/app/index.htm'); // load the single view file (angular will handle the page changes on the front-end)
+});
 
 // debug user
 app.get("/user", function(req, res){

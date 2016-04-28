@@ -2,5 +2,6 @@
 commerceApp.service('shareService', function() {
 
     this.testvar = 15;
+    this.resetHeader = false;
 });
 

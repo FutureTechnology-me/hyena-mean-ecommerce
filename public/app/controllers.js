@@ -229,11 +229,18 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
 
 }]);
 
-commerceApp.controller('headerController', ['$scope', '$location','$http','$log','$route',function($scope, $location, $http, $log, $route) {
+commerceApp.controller('headerController', ['$scope', '$location','$http','$log','$route', "shareService",function($scope, $location, $http, $log, $route, shareService) {
   $scope.header =[ { name: 'header.html', url: 'app/pages/header.html'} ];
   $scope.header = $scope.header[0];
-  
+  $scope.shareService = shareService;
   $scope.displayLogin = true;
+  
+      $scope.$watch('shareService.logout', function(newVal, oldVal){
+        if(newVal === true){
+            shareService.logout=false;
+            $scope.logout();
+        }
+    })
   
     $scope.getUser = function(){
     $http({
@@ -287,7 +294,7 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
     $scope.getUser();
 }]);
 
-commerceApp.controller('profileController', ['$scope', '$location','$http','$log','$route',function($scope, $location, $http, $log, $route) {
+commerceApp.controller('profileController', ['$scope', '$location','$http','$log','$route','shareService',function($scope, $location, $http, $log, $route, shareService) {
 $log.debug('profile controller reporting in');
 
     $scope.showEdit = false;
@@ -297,7 +304,27 @@ $log.debug('profile controller reporting in');
     }
     $scope.toProfile = function() {
     $scope.showEdit = false;
-    console.log('ping')
+    }
+    
+    $scope.profileDelete = function(){
+        var yesno = confirm("Are you sure you want to delete your account? This action can not be undone!");
+        if (yesno == true) {
+             $http({
+              method: 'DELETE',
+              url: '/deleteprofile'
+            }).then(function successCallback(response) {
+                $log.info(response);
+                $log.debug(shareService.resetHeader);
+                shareService.logout = true;
+                $log.info(shareService.resetHeader);
+                $location.path('/');
+              }, function errorCallback(response) {
+                $log.error('failed to delete profile : ' + response);
+                });
+        } else {
+
+        }
+
     }
 
 
