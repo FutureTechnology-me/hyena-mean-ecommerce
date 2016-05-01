@@ -1,28 +1,15 @@
 // CONTROLLERS
 commerceApp.controller('mainController', ['$scope', '$location','$http','$log','$route', 'ngCart', 'shareService', '$routeParams', function($scope, $location, $http, $log, $route, ngCart, shareService, $routeParams) {
-  // set tax rate
-  ngCart.setTaxRate(7.5);
-  // set default shipping value for ng-cart
-  ngCart.setShipping(2.99);
+    // set tax rate
+    ngCart.setTaxRate(7.5);
+    // set default shipping value for ng-cart
+    ngCart.setShipping(2.99);
+    
+    // shared functions
+    $scope.details= shareService.details;
+    $scope.goShopping = shareService.goShopping;
+    $scope.toCart = shareService.toCart;
 
-    // view product details ============================= This function is written twice and is not DRY. Requires fixing.
-    $scope.details = function(product){
-        // share the current item with other controllers via shareService
-        shareService.currentItem = product;
-        //use the product id as the route parameter in /details/:id
-        $location.path('/details/' + product._id);
-    };
-   
-    // view shopping cart
-    $scope.toCart = function(){
-        $location.path('/cart');
-    };
-    
-    //view our ecommerce homepage (in this case the default route)
-    $scope.goShopping = function(){
-        $location.path('/');
-    };
-    
     
     $scope.cartDetails = function () {
         // get the items from ngCart
@@ -62,7 +49,7 @@ commerceApp.controller('mainController', ['$scope', '$location','$http','$log','
       
       //calculate and share cart tax 
       shareService.carttax = (ngCart.getSubTotal() * 0.075).toFixed(2);
-    }
+    };
     
     
     $scope.randomShipping = function(){
@@ -85,12 +72,12 @@ $scope.carttax = shareService.carttax;
 $scope.$watch('shareService.items', function(){
     // update $scope to match shareService changes
     $scope.items = shareService.items;
-})
+});
 // watch shareService.item for changes
 $scope.$watch('shareService.carttax', function(){
     // update $scope to match shareService changes
     $scope.carttax = shareService.carttax;
-})
+});
 
 }]);
 
@@ -103,7 +90,7 @@ $scope.totalShipping = shareService.totalShipping;
 $scope.$watch('shareService.totalShipping', function(){
     //Update $scope to match changes
     $scope.totalShipping = shareService.totalShipping;
-})
+});
 
 
 }]);
@@ -116,13 +103,10 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
         // Retrieve the item id from $routeParams
         $scope.currentItem = $routeParams.id;
         
-        // view product details ============================= This function is written twice and is not DRY. Requires fixing.
-        $scope.details = function(product){
-            // share the current item with other controllers via shareService
-            shareService.currentItem = product;
-            //use the product id as the route parameter in /details/:id
-            $location.path('/details/' + product._id);
-        }
+        // shared functions
+        $scope.details= shareService.details;
+        $scope.toCart = shareService.toCart;
+        $scope.backShopping = shareService.goShopping;
 
 
         // retrieve products from db
@@ -160,15 +144,7 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
             });
         };// ========================================================================================== END getDetails()
     
-    // nav function return to homepage
-    $scope.backShopping = function(){
-        $location.path('/');
-    }
-    
-    // nav function view cart
-    $scope.toCart = function(){
-        $location.path('/cart');
-    }
+
     
     // show other products in category if a category is selected
     $scope.filterFunction = function(element) {
@@ -307,21 +283,26 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
   
   // save shareService to $scope
   $scope.shareService = shareService;
+  $scope.toProfile = shareService.toProfile;
+  $scope.toLogin = shareService.toLogin;
+  $scope.toRegister = shareService.toRegister;
+  $scope.logout = shareService.logout;
   
   // default displayLogin bool to true 
   $scope.displayLogin = true;
   
     // watch the logout bool in shareService 
-    $scope.$watch('shareService.logout', function(newVal, oldVal){
-        // if shareService says to logout
+    $scope.$watch('shareService.didLogout', function(newVal, oldVal){
+        // if shareService just logged out
         if(newVal === true){
-            shareService.logout=false;
-            // call logout function
-            $scope.logout();
+            // reset the trigger
+            shareService.didLogout = false;
+            // display the login nav
+            $scope.displayLogin = true;
         }
     });
 
-    // get user
+    // get username
     $scope.getUser = function(){
     $http({
       method: 'GET',
@@ -342,44 +323,12 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
       });
     }
     
-    // navigate to profile page
-    $scope.toProfile = function(){
-        $location.path('/profile');
-    }
-    // navigate to login page
-    $scope.toLogin = function(){
-        $location.path('/login');
-    }
-    // navigate to registration page
-    $scope.toRegister = function(){
-        $location.path('/register');
-    }
-    // log the user out, set displayLogin to true, redirect to home page
-    $scope.logout = function(){
-        $http.get('/logout');
-        $scope.displayLogin = true;
-        $location.path('/');
-        // $route.reload();
-    }
-    
-    // call authentication debug route
-    $scope.secret = function(){
-        $http({
-          method: 'GET',
-          url: '/secret'
-        }).then(function successCallback(response) {
-            $log.info(response.data);
-          }, function errorCallback(response) {
-            $log.error(response);
-          });
-    }
-    
     // get user data any time the headerController is active
     $scope.getUser();
 }]);
 
 commerceApp.controller('profileController', ['$scope', '$location','$http','$log','$route','shareService',function($scope, $location, $http, $log, $route, shareService) {
-$log.debug('profile controller reporting in');
+
     // hide edit form default
     $scope.showEdit = false;
     
@@ -403,7 +352,7 @@ $log.debug('profile controller reporting in');
             }).then(function successCallback(response) {
                 $log.info(response);
                 // set logout to true in shareService - this will trigger loggout in the headerController
-                shareService.logout = true;
+                shareService.logout();
                 // redirect to /
                 $location.path('/');
               }, function errorCallback(response) {
@@ -429,4 +378,5 @@ $log.debug('profile controller reporting in');
             });
     };
 
+    $scope.getProfileInfo();
 }]);
