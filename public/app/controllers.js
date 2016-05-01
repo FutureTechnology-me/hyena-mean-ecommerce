@@ -5,11 +5,11 @@ commerceApp.controller('mainController', ['$scope', '$location','$http','$log','
   // set default shipping value for ng-cart
   ngCart.setShipping(2.99);
 
-    // view product details
+    // view product details ============================= This function is written twice and is not DRY. Requires fixing.
     $scope.details = function(product){
         // share the current item with other controllers via shareService
         shareService.currentItem = product;
-        //use the product id as a route parameter in /details/:id
+        //use the product id as the route parameter in /details/:id
         $location.path('/details/' + product._id);
     };
    
@@ -109,55 +109,76 @@ $scope.$watch('shareService.totalShipping', function(){
 }]);
 
 commerceApp.controller('detailsController', ['$scope', '$location','$http','$log','$route', 'ngCart', 'shareService', '$routeParams', function($scope, $location, $http, $log, $route, ngCart, shareService, $routeParams) {
-
+        
+        // Retrieve department category from shareService
         $scope.department = shareService.cat;
-            
+        
+        // Retrieve the item id from $routeParams
         $scope.currentItem = $routeParams.id;
-
+        
+        // view product details ============================= This function is written twice and is not DRY. Requires fixing.
         $scope.details = function(product){
+            // share the current item with other controllers via shareService
             shareService.currentItem = product;
+            //use the product id as the route parameter in /details/:id
             $location.path('/details/' + product._id);
         }
 
 
-        
+        // retrieve products from db
         $scope.getDetails = function(){
-        $http({
-            method: 'GET',
-            url: '/products'
-        }).then(function successCallback(response){
-            $log.debug('getDetails success : ' + JSON.stringify(response.data) );
-            $scope.products = response.data;
-            $log.debug($scope.products);
-            for (var i = 0; i < $scope.products.length ; i++){
-                if ($scope.products[i]._id == $scope.currentItem){
-                    $log.info('MATCH AT product ' + i + ' product id : ' + $scope.products[i]._id + ' matches ' + $scope.currentItem);
-                    $scope.thisProduct = $scope.products[i];
+            $http({
+                method: 'GET',
+                url: '/products'
+            }).then(function successCallback(response){
+                // debug response data
+                //$log.debug('getDetails success : ' + JSON.stringify(response.data) );
+                
+                //use response data to create products array in scope
+                $scope.products = response.data;
+                
+                // debug products array
+                // $log.debug($scope.products);
+                
+                // loop through products array
+                for (var i = 0; i < $scope.products.length ; i++){
+                    // find the object which has an id matching the route :id
+                    if ($scope.products[i]._id == $scope.currentItem){
+                        // display match info for debugging loop
+                        $log.info('MATCH AT product ' + i + ' product id : ' + $scope.products[i]._id + ' matches ' + $scope.currentItem);
+                        // set thisProduct with matching result
+                        $scope.thisProduct = $scope.products[i];
+                    }
                 }
-            }
-            
-            if ($scope.thisProduct === undefined){
-                $log.error('unable to find match in product database. Please check url');
-            }
-        }, function errorCallback(response){
-            $log.error('getDetails error : ' + response);
-        });
-    }
+                
+                // If there is no match log as an error for debugging (This should never happen)
+                if ($scope.thisProduct === undefined){
+                    $log.error('unable to find match in product database. Please check url');
+                }
+            }, function errorCallback(response){
+                $log.error('getDetails error : ' + response);
+            });
+        };// ========================================================================================== END getDetails()
     
+    // nav function return to homepage
     $scope.backShopping = function(){
         $location.path('/');
     }
     
+    // nav function view cart
     $scope.toCart = function(){
         $location.path('/cart');
     }
     
+    // show other products in category if a category is selected
     $scope.filterFunction = function(element) {
+        // Check if the current items department matches the shareService category, and set this bool
       var departmentMatch = element.department.match(shareService.cat) ? true : false;
+      // return a bool based on the bool
       return (departmentMatch === true) ? true : false;
     };
     
-
+    // get details any time detailsController is active 
     $scope.getDetails();
 
 }]);
