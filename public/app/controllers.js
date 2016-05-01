@@ -185,19 +185,24 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
 
 commerceApp.controller('productController', ['$scope', '$location','$http','$log','$route','ngCart', '$routeParams', 'shareService', function($scope, $location, $http, $log, $route, ngCart, $routeParams, shareService) {
     
+    //set filter variable department to shareService category
     $scope.department = shareService.cat;
+    // set filter variable subcategory to shareService subcategory
     $scope.subcategory = shareService.subcat;
-    console.log('department scope' + shareService.cat)
 
-    
+    //GET products from database
     $scope.getProducts = function(){
         $http({
             method: 'GET',
             url: '/products'
         }).then(function successCallback(response){
+            //debug response
             $log.debug('getProducts success : ' + JSON.stringify(response.data) );
+            //set products to match response data
             $scope.products = response.data;
+            //debug products
             $log.debug($scope.products);
+            //execute buttonFilter();
             $scope.buttonFilter();
         }, function errorCallback(response){
             $log.error('getProducts error : ' + response);
@@ -205,12 +210,13 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
     }
     
     
-    
     $scope.buttonFilter = function(){
+        // creat blank subcategories array
         var subcategoriesArray = [];
+        // create blank categories array
         var categoriesArray = [];
-        console.log($scope.products);
-         
+        
+        // loop through products
         for (var y = 0; y < $scope.products.length; y++){
             // for each product add it's category to the categories array
         	categoriesArray[y] = $scope.products[y].department;
@@ -248,12 +254,14 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
           // we have subcategoriesArray[#] containing a list of subcategories for the corresponding value in categoriesArray
           $log.debug(subcategoriesArray);
           
+          // send category array to scope
           $scope.categoriesInfo = categoriesArray;
+          // send subcategories array to scope
           $scope.subcategoriesInfo = subcategoriesArray;
 
     };
     
-    
+    // clear filter variables in $scope and shareService
     $scope.resetFilter = function(){
         $scope.department = "";
         shareService.cat = "";
@@ -261,6 +269,7 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
         shareService.subcat = "";
     }
     
+    // set category in $scope and shareService
     $scope.setCategory = function(category){
         $scope.department = category;
         shareService.cat = category;
@@ -268,6 +277,7 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
         shareService.subcat = "";
     }
     
+    // set category and subcategory in $scope and shareService
     $scope.setSubcategory = function(category, subcategory){
         $scope.department = category;
         shareService.cat = category;
@@ -279,10 +289,11 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
     $scope.filterFunction = function(element) {
       var departmentMatch = element.department.match($scope.department) ? true : false;
       var subcategoryMatch = element.productAdjective.match($scope.subcategory) ? true : false;
+      // return whether or not the product matched so that angular knows whether or not to display it
       return (departmentMatch && subcategoryMatch === true) ? true : false;
     };
     
-    
+    // get products from the database any time productController is active
     $scope.getProducts();
     
 
