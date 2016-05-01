@@ -3,7 +3,7 @@ Simple MEAN e-commerce application with seed
 
 This is a basic MEAN application which has
 
-- user Create, Read, Update
+- user Create, Read, Update, Delete
 - user authentication
 - product database
 - product seed
@@ -20,6 +20,12 @@ OURSECRET : the secret you wish to use to generate user salt/hash
 
 You'll want to update checkout.html to use the desired paypal email. 
 
-I'll improve this as soon as I can.
+I'll improve this as often as possible. Intended future features 
+
+-front end admin tools
+-multiple starting template options
+-completely DRY code (as of right now there are a few repeated functions between controllers)
+-other payment options / use of profile data to prefill payment forms
+-paypal post purchase route
 
 sample deployment at https://young-reef-40477.herokuapp.com/#/
