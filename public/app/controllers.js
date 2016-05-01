@@ -300,29 +300,40 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
 }]);
 
 commerceApp.controller('headerController', ['$scope', '$location','$http','$log','$route', "shareService",function($scope, $location, $http, $log, $route, shareService) {
+  // header template array --- not necessary yet but in the future we'll add easy to change templates
   $scope.header =[ { name: 'header.html', url: 'app/pages/header.html'} ];
+  // set header 
   $scope.header = $scope.header[0];
+  
+  // save shareService to $scope
   $scope.shareService = shareService;
+  
+  // default displayLogin bool to true 
   $scope.displayLogin = true;
   
-      $scope.$watch('shareService.logout', function(newVal, oldVal){
+    // watch the logout bool in shareService 
+    $scope.$watch('shareService.logout', function(newVal, oldVal){
+        // if shareService says to logout
         if(newVal === true){
             shareService.logout=false;
+            // call logout function
             $scope.logout();
         }
-    })
-  
+    });
+
+    // get user
     $scope.getUser = function(){
     $http({
       method: 'GET',
       url: '/user'
     }).then(function successCallback(response) {
-        // $scope.user = JSON.stringify(response.data);
+        // set user in $scope with response data
         $scope.user = response.data;
+        //debug response data
         $log.debug("/user callback was : " + JSON.stringify(response.data));
-        // check if a user is logged in and set displayLogin for css
+        
+        // check if a user is logged in and set displayLogin to appropriate value
         if($scope.user === ''){
-            console.log('detected no user')
             $scope.displayLogin = true;
         } else {$scope.displayLogin = false;}
       }, function errorCallback(response) {
@@ -331,24 +342,27 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
       });
     }
     
+    // navigate to profile page
     $scope.toProfile = function(){
         $location.path('/profile');
     }
-    
+    // navigate to login page
     $scope.toLogin = function(){
         $location.path('/login');
     }
-    
+    // navigate to registration page
     $scope.toRegister = function(){
         $location.path('/register');
     }
-    
+    // log the user out, set displayLogin to true, redirect to home page
     $scope.logout = function(){
         $http.get('/logout');
         $scope.displayLogin = true;
         $location.path('/');
         // $route.reload();
     }
+    
+    // call authentication debug route
     $scope.secret = function(){
         $http({
           method: 'GET',
@@ -360,7 +374,7 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
           });
     }
     
-
+    // get user data any time the headerController is active
     $scope.getUser();
 }]);
 
