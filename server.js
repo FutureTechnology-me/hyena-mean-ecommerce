@@ -45,9 +45,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
-   res.locals.currentUser = req.user;
-   next();
+    res.locals.currentUser = req.user;
+    next();
 });
+
+
 
 //////////////////////////////////////////////////////////////////
 ////////////Auth routes
@@ -101,12 +103,14 @@ app.get("/logout", function(req, res) {
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
-    }
-    var fillerObj = {
-        errorMessage : "You're not logged in friend.",
-        notAuth : true
-    }
+    } else {
+        var fillerObj = {
+            errorMessage : "You're not logged in friend.",
+            notAuth : true
+        }
     res.send(fillerObj);
+    }
+
 }
 
 //////////////////////////////////////////////////////////////////
