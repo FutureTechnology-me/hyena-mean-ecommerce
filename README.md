@@ -22,10 +22,10 @@ You'll want to update checkout.html to use the desired paypal email.
 
 I'll improve this as often as possible. Intended future features 
 
--front end admin tools
--multiple starting template options
--completely DRY code (as of right now there are a few repeated functions between controllers)
--other payment options / use of profile data to prefill payment forms
--paypal post purchase route
+- front end admin tools
+- multiple starting template options
+- completely DRY code (as of right now there are a few repeated functions between controllers)
+- other payment options / use of profile data to prefill payment forms
+- paypal post purchase route
 
 sample deployment at https://young-reef-40477.herokuapp.com/#/
