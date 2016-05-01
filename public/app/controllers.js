@@ -106,7 +106,7 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
         // shared functions
         $scope.details= shareService.details;
         $scope.toCart = shareService.toCart;
-        $scope.backShopping = shareService.goShopping;
+        $scope.goShopping = shareService.goShopping;
 
 
         // retrieve products from db
