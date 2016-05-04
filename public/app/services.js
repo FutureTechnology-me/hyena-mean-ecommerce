@@ -48,10 +48,10 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
             $location.path('/');
         };    
     // auth routes
+    
     // log the user out, set displayLogin to true, redirect to home page
     this.logout = function(){
         $http.get('/logout');
-        this.shareService.didLogout = true;
         $location.path('/');
     };
 

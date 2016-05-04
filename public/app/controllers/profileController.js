@@ -1,5 +1,7 @@
 commerceApp.controller('profileController', ['$scope', '$location','$http','$log','$route','shareService',function($scope, $location, $http, $log, $route, shareService) {
 
+
+    $scope.shareService = shareService;
     // hide edit form default
     $scope.showEdit = false;
     
@@ -24,6 +26,7 @@ commerceApp.controller('profileController', ['$scope', '$location','$http','$log
                 $log.info(response);
                 // set logout to true in shareService - this will trigger loggout in the headerController
                 shareService.logout();
+                shareService.didLogout = true;
                 // redirect to /
                 $location.path('/');
               }, function errorCallback(response) {
