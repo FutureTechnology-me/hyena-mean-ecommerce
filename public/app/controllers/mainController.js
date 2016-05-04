@@ -4,6 +4,8 @@ commerceApp.controller('mainController', ['$scope', '$location','$http','$log','
     // set default shipping value for ng-cart
     ngCart.setShipping(2.99);
     
+    //set shareService for details function
+    $scope.shareService = shareService;
     // shared functions
     $scope.details= shareService.details;
     $scope.goShopping = shareService.goShopping;

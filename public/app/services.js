@@ -35,8 +35,6 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
     };
         // view product details 
         this.details = function(product){
-            // share the current item with other controllers via shareService
-            this.currentItem = product;
             //use the product id as the route parameter in /details/:id
             $location.path('/details/' + product._id);
         };
@@ -53,9 +51,8 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
     // log the user out, set displayLogin to true, redirect to home page
     this.logout = function(){
         $http.get('/logout');
-        this.didLogout = true;
+        this.shareService.didLogout = true;
         $location.path('/');
-        // $route.reload();
     };
 
     // call authentication debug route

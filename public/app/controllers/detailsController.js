@@ -6,6 +6,7 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
         // Retrieve the item id from $routeParams
         $scope.currentItem = $routeParams.id;
         
+        
         // shared functions
         $scope.details= shareService.details;
         $scope.toCart = shareService.toCart;

@@ -19,6 +19,7 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
         // if shareService just logged out
         if(newVal === true){
             // reset the trigger
+            $log.debug("header recognized logout");
             shareService.didLogout = false;
             // display the login nav
             $scope.displayLogin = true;
