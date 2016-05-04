@@ -14,6 +14,11 @@ commerceApp.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'app/pages/register.html',
         controller: 'mainController'
     })
+    .when('/register-taken', {
+        templateUrl: 'app/pages/register.html',
+        controller: 'mainController',
+        tellUser : 'That username is already taken'
+    })
     .when('/profile', {
         templateUrl: 'app/pages/profile.html',
         controller: 'profileController'
