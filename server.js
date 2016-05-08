@@ -1,17 +1,18 @@
 // install express & dependancies
-var express = require("express"),
-    ejs = require("ejs"),
-    bodyParser = require("body-parser"),
-    mongoose   = require("mongoose"),
-    faker      = require("faker"),
-    passport   = require("passport"),
-    methodOverride = require ("method-override"),
-    LocalStrategy = require("passport-local"),
-    User = require("./models/user"),
-    seedDB     = require("./seed.js"),
-    Product = require("./models/product"),
-    faker = require('faker'),
-    setUserGroup = require('./setUserGroup.js');
+var ejs             = require('ejs'),
+    faker           = require('faker'),
+    express         = require('express'),
+    passport        = require('passport'),
+    mongoose        = require('mongoose'),
+    seedDB          = require('./seed.js'),
+    bodyParser      = require('body-parser'),
+    User            = require('./models/user'),
+    LocalStrategy   = require('passport-local'),
+    Product         = require('./models/product'),
+    methodOverride  = require ('method-override'),
+    setUserGroup    = require('./setUserGroup.js');
+
+
 
 mongoose.connect(process.env.DATABASEURL);
 
