@@ -117,7 +117,7 @@ function isLoggedIn(req, res, next){
 ////////////Profile routes
 //////////////////////////////////////////////////////////////
 //user profile get route
-app.get("/profileInfo",isLoggedIn, function(req, res){
+app.get("/profile",isLoggedIn, function(req, res){
    console.log(req.user);
    console.log('you hit profile');
     
@@ -133,9 +133,10 @@ app.get("/profileInfo",isLoggedIn, function(req, res){
 });
 
 // user profile update route 
-app.put("/profileInfo",isLoggedIn, function(req, res){
+app.put("/profile",isLoggedIn, function(req, res){
 
     //-------------------------------------- MONGOOSE UPDATE USER
+    //Update data of currently logged in user
     User.findByIdAndUpdate(req.user._id, {
         // SET UP userInfo OBJECT BASED ON REQUEST DATA
         $set: {
@@ -166,7 +167,7 @@ app.put("/profileInfo",isLoggedIn, function(req, res){
 });
 
 // DESTROY USER ACCOUNT ROUTE
-app.delete("/deleteprofile", isLoggedIn, function(req, res){
+app.delete("/profile", isLoggedIn, function(req, res){
     User.findByIdAndRemove(req.user._id, function(err){
        if(err){
             res.send(err);

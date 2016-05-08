@@ -23,10 +23,6 @@ commerceApp.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'app/pages/profile.html',
         controller: 'profileController'
     })
-    .when('/updateprofile', {
-        templateUrl: 'app/pages/updateprofile.html',
-        controller: 'profileController'
-    })
     .when('/cart', {
         templateUrl : 'app/pages/cart.html',
         controller: 'productController'

@@ -30,8 +30,9 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
     $scope.localLogout = function() {
       $scope.logout();
       $scope.displayLogin = true;
-    }
-    // get username
+    };
+    
+    // Check for a username, if blank show login.
     $scope.getUser = function(){
     $http({
       method: 'GET',
@@ -50,7 +51,7 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
         $log.error("/user error was : " + response);
         $scope.user = "user error";
       });
-    }
+    };
     
     // get user data any time the headerController is active
     $scope.getUser();

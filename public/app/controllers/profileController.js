@@ -21,7 +21,7 @@ commerceApp.controller('profileController', ['$scope', '$location','$http','$log
         if (yesno == true) {
              $http({
               method: 'DELETE',
-              url: '/deleteprofile'
+              url: '/profile'
             }).then(function successCallback(response) {
                 $log.info(response);
                 // set logout to true in shareService - this will trigger loggout in the headerController
@@ -40,7 +40,7 @@ commerceApp.controller('profileController', ['$scope', '$location','$http','$log
     $scope.getProfileInfo = function(){
         $http({
           method: 'GET',
-          url: '/profileInfo'
+          url: '/profile'
         }).then(function successCallback(response) {
             //debug profile response data
             $log.info('profile success : ' + response.data);
