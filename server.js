@@ -10,7 +10,8 @@ var express = require("express"),
     User = require("./models/user"),
     seedDB     = require("./seed.js"),
     Product = require("./models/product"),
-    faker = require('faker');
+    faker = require('faker'),
+    setUserGroup = require('./setUserGroup.js');
 
 mongoose.connect(process.env.DATABASEURL);
 
@@ -26,7 +27,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(methodOverride("_method"));
+
+// uncomment this to clean and seed the database with products
 //seedDB();
+
+// uncomment this to set a users userGroup 
+//setUserGroup('desired users id string', 'desired userGroup string');
 
 //////////////////////////////////////////////////////////////////
 ////////////Passport configuration
@@ -95,11 +101,13 @@ app.post("/login", passport.authenticate("local",
 
 // logout route
 app.get("/logout", function(req, res) {
+   console.log('user logging out: username: ' + req.user.username + " id: " + req.user._id);
    req.logout();
    res.redirect("/");
-   console.log('you logged out');
 });
 
+
+// Auth logic 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
@@ -107,10 +115,26 @@ function isLoggedIn(req, res, next){
         var fillerObj = {
             errorMessage : "You're not logged in friend.",
             notAuth : true
-        }
+        };
     res.send(fillerObj);
     }
 
+}
+
+function isAdmin(req, res, next){
+        User.findById(req.user._id, function(err, user) {
+        if (err){
+            console.log('profile info route error : ' + err);
+        }else {
+            if (user.userGroup === "admin"){
+                return next();
+            } else {
+                res.send ("not an admin");
+            }
+        }
+
+    }); 
+    
 }
 
 //////////////////////////////////////////////////////////////////
@@ -227,6 +251,11 @@ app.get('/products', function(req, res) {
 //   console.log('you hit secret');
 //   res.send('secret data');
 // });
+
+// app.get("/admintest", isLoggedIn, isAdmin, function(req, res){
+//     res.send("account passed admin auth test");
+// });
+
 
 // Catch all
 app.get("*", function(req, res){
