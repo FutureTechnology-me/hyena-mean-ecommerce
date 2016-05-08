@@ -54,8 +54,9 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
     $scope.filterFunction = function(element) {
         // Check if the current items department matches the shareService category, and set this bool
       var departmentMatch = element.department.match(shareService.cat) ? true : false;
+      var sameItem = element._id.match($scope.thisProduct._id) ? true : false;
       // return a bool based on the bool
-      return (departmentMatch === true) ? true : false;
+      return (departmentMatch === true && sameItem === false) ? true : false;
     };
     
     // get details any time detailsController is active 
