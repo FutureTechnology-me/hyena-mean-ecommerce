@@ -31,4 +31,8 @@ commerceApp.config(function ($routeProvider, $locationProvider) {
         templateUrl : 'app/pages/details.html',
         controller: 'detailsController'
     })
+    .when('/:all*', {
+        templateUrl: 'app/pages/home.html',
+        controller: 'mainController'
+    });
 });
