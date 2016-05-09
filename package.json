@@ -4,6 +4,7 @@
   "description": "MEAN stack ecommerce template with placeholder seed.",
   "main": "server.js",
   "dependencies": {
+    "angular": "^1.5.5",
     "body-parser": "^1.15.0",
     "ejs": "^2.4.1",
     "express": "^3.21.2",
