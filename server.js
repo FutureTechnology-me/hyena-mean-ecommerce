@@ -97,11 +97,6 @@ app.use(function(req, res, next){
 ////////////Auth routes
 //////////////////////////////////////////////////////////////
 
-// show register form --- handled by angular
-// app.get('/register', function(req, res){
-//   res.render('register'); 
-// });
-
 // registration logic
 app.post('/register', function(req, res){
     var newUser = new User({username: req.body.username, userInfo: { deleteme : 'placeholder value' }});
@@ -117,13 +112,6 @@ app.post('/register', function(req, res){
     });
 
 })
-
-
-// show login form --- handled by angular 
-// app.get('/login', function(req,res){
-//     res.render('login');
-// });
-
 
 // login logic
 app.post('/login', passport.authenticate('local',
@@ -175,6 +163,7 @@ function isAdmin(req, res, next){
 //////////////////////////////////////////////////////////////////
 ////////////Profile routes
 //////////////////////////////////////////////////////////////
+
 //user profile get route
 app.get('/profile',isLoggedIn, function(req, res){
    console.log(req.user);
