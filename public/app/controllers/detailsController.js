@@ -19,9 +19,6 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
                 method: 'GET',
                 url: '/products'
             }).then(function successCallback(response){
-                // debug response data
-                //$log.debug('getDetails success : ' + JSON.stringify(response.data) );
-                
                 //use response data to create products array in scope
                 $scope.products = response.data;
                 
@@ -32,8 +29,6 @@ commerceApp.controller('detailsController', ['$scope', '$location','$http','$log
                 for (var i = 0; i < $scope.products.length ; i++){
                     // find the object which has an id matching the route :id
                     if ($scope.products[i]._id == $scope.currentItem){
-                        // display match info for debugging loop
-                        $log.info('MATCH AT product ' + i + ' product id : ' + $scope.products[i]._id + ' matches ' + $scope.currentItem);
                         // set thisProduct with matching result
                         $scope.thisProduct = $scope.products[i];
                     }

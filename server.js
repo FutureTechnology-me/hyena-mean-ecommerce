@@ -166,9 +166,6 @@ function isAdmin(req, res, next){
 
 //user profile get route
 app.get('/profile',isLoggedIn, function(req, res){
-   console.log(req.user);
-   console.log('you hit profile');
-    
     User.findById(req.user._id, function(err, user) {
         if (err){
             console.log('profile info route error : ' + err);

@@ -11,12 +11,8 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
             method: 'GET',
             url: '/products'
         }).then(function successCallback(response){
-            //debug response
-            $log.debug('getProducts success : ' + JSON.stringify(response.data) );
             //set products to match response data
             $scope.products = response.data;
-            //debug products
-            $log.debug($scope.products);
             //execute buttonFilter();
             $scope.buttonFilter();
         }, function errorCallback(response){
@@ -51,7 +47,6 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
                     
                     // check for a match
                     if ($scope.products[x].department === categoriesArray[i]) {
-                        $log.debug(categoriesArray[i] + " " + $scope.products[x].productAdjective);
                         // match
                         // push subcategory to appropriate nested array in subcategoriesArray
                         subcategoriesArray[i].push($scope.products[x].productAdjective);
@@ -65,9 +60,7 @@ commerceApp.controller('productController', ['$scope', '$location','$http','$log
           }
           
           // we have categoriesArray[#] for our button title, and separated link
-          $log.debug(categoriesArray);
           // we have subcategoriesArray[#] containing a list of subcategories for the corresponding value in categoriesArray
-          $log.debug(subcategoriesArray);
           
           // send category array to scope
           $scope.categoriesInfo = categoriesArray;

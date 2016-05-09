@@ -40,8 +40,6 @@ commerceApp.controller('headerController', ['$scope', '$location','$http','$log'
     }).then(function successCallback(response) {
         // set user in $scope with response data
         $scope.user = response.data;
-        //debug response data
-        $log.debug("/user callback was : " + JSON.stringify(response.data));
         
         // check if a user is logged in and set displayLogin to appropriate value
         if($scope.user === ''){

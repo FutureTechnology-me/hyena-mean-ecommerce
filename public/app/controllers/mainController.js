@@ -34,9 +34,6 @@ commerceApp.controller('mainController', ['$scope', '$location','$http','$log','
           
           // add shipping value of item to shipping total
           $scope.shippingTotal = Number($scope.shippingTotal) + Number(shipping);
-          // debug 
-          $log.debug('shipping : ' + shipping);
-          $log.debug('shipping total + shipping = ' + $scope.shippingTotal);
           // =================================================================================
           
           // Create an item containing desired data 
@@ -49,9 +46,6 @@ commerceApp.controller('mainController', ['$scope', '$location','$http','$log','
       shareService.items = $scope.items;
       // share shippingTotal with other controllers using shareService
       shareService.totalShipping = $scope.shippingTotal;
-      
-      //cart details to help debug
-      $log.info("Items Array from cartDetails : "+$scope.items);
       
       //calculate and share cart tax 
       shareService.carttax = (ngCart.getSubTotal() * 0.075).toFixed(2);
