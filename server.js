@@ -100,7 +100,6 @@ app.post('/register', function(req, res){
         } else {
         passport.authenticate('local')(req, res, function(){
             res.redirect('/');
-            console.log('register success');
         });
         }
     });
@@ -204,8 +203,6 @@ app.put('/profile',isLoggedIn, function(req, res){
         if (err){
             console.log('profile info route error : ' + err);
         }else {
-            console.log(req.body)
-            console.log('profile updated to ' + updatedUser); 
             res.redirect('/#/profile');
         }
 
@@ -235,11 +232,11 @@ app.get('/', function(req, res){
 
 // debug user
 app.get('/user', function(req, res){
-   if (!req.user){
-   res.send();
-   } else {
-   res.send(req.user.username);  
-   }
+    if (!req.user){
+        res.send();
+    } else {
+        res.send(req.user.username);  
+    }
    
 });
 
@@ -257,12 +254,10 @@ app.get('/products', function(req, res) {
 
 // alternative product details route -- handled by angular using /products
 // app.get('/details/:id', function(req, res) {
-//     console.log(req.params.id);
 //     Product.findById(req.params.id, function(err, theProduct) {
 //         if (err){
 //             console.log('product route error : ' + err);
 //         }else {
-//             console.log(theProduct + ' product');
 //             res.send(theProduct); 
 //         }
 
@@ -272,7 +267,6 @@ app.get('/products', function(req, res) {
 // AUTH TESTING
 // app.get('/secret',isLoggedIn, function(req, res){
 //     // use this route to debug auth 
-//   console.log('you hit secret');
 //   res.send('secret data');
 // });
 
