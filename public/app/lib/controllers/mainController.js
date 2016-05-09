@@ -1,5 +1,5 @@
 commerceApp.controller('mainController', ['$scope', '$location','$http','$log','$route', 'ngCart', 'shareService', '$routeParams', function($scope, $location, $http, $log, $route, ngCart, shareService, $routeParams) {
-    
+ 
     if ($route.current.tellUser){
       $scope.tellUser = $route.current.tellUser;
     }

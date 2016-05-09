@@ -1,4 +1,4 @@
-commerceApp.config(function ($routeProvider, $locationProvider) {
+commerceApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     
     $routeProvider
     
@@ -35,4 +35,4 @@ commerceApp.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'app/pages/home.html',
         controller: 'mainController'
     });
-});
+}]);

@@ -1,7 +1,6 @@
 // SERVICES
 // The service we use to share data between controllers
 commerceApp.service('shareService',['$location', '$http', '$log', function($location, $http, $log) {
-    
     // shared variables
     // Should header log out? (will be fixed when we transfer functions to shared)
     this.didLogout = false;
