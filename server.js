@@ -13,9 +13,26 @@ var ejs             = require('ejs'),
     setUserGroup    = require('./setUserGroup.js');
 
 
+
+//Development configuration
+var devMode = {
+    // set true to enable dev functions
+    active      : false,
+    // set true to run seed script on startup
+    seed        : false,
+    // set up properties of giveAdmin
+    giveAdmin  : {
+        // use giveAdmin on startup?
+       active   : false,
+       // target user id
+       id       : '',
+       // desired group name - standard: Admin
+       group    : ''
+    }
+};
+
+
 mongoose.connect(process.env.DATABASEURL);
-
-
 //////////////////////////////////////////////////////////////////
 ////////////Initialize express
 //////////////////////////////////////////////////////////////
@@ -28,11 +45,18 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(methodOverride('_method'));
 
-// uncomment this to clean and seed the database with products
-//seedDB();
+// dev mode
+if (devMode.active === true){
+    // check if we should seed the database
+    if (devMode.seed === true){
+        seedDB();
+    }
+    // check if we should bestow admin to a user
+    if (devMode.giveAdmin.active === true){
+        setUserGroup(devMode.giveAdmin.id, devMode.giveAdmin.group);
+    }
+}
 
-// uncomment this to set a users userGroup 
-//setUserGroup('desired users id string', 'desired userGroup string');
 
 //////////////////////////////////////////////////////////////////
 ////////////Passport configuration

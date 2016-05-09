@@ -6,7 +6,7 @@ var setUserGroup = function(userID, userGroup) {
         if (err){
             console.log('there was an error setting up admin: ' + err );
         }else {
-            console.log('User: ' + user.username + ' is now in the userGroup: ' + user.userGroup);
+            console.log('User: ' + user.username + ' is now in the userGroup: ' + JSON.stringify(user.userGroup));
         }
     });
 };
