@@ -17,11 +17,23 @@ var ejs             = require('ejs'),
 //Development configuration
 var devMode = {
     // set true to enable dev functions
-    active      : false,
-    // set true to run seed script on startup
-    seed        : false,
+    active      : true,
+    // set up properties of seedConfig
+    seedConfig  : {
+        // set true to run seed script on startup 
+        active  : true,
+        // delete all users
+        users   : false,
+        // delete all products
+        products: true,
+        // how many products to seed
+        quantity: 100,
+        // log events
+        feedback: true
+        
+    },
     // set up properties of giveAdmin
-    giveAdmin  : {
+    giveAdmin   : {
         // use giveAdmin on startup?
        active   : false,
        // target user id
@@ -48,8 +60,8 @@ app.use(methodOverride('_method'));
 // dev mode
 if (devMode.active === true){
     // check if we should seed the database
-    if (devMode.seed === true){
-        seedDB();
+    if (devMode.seedConfig.active === true){
+        seedDB(devMode.seedConfig);
     }
     // check if we should bestow admin to a user
     if (devMode.giveAdmin.active === true){

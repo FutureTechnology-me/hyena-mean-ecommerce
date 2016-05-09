@@ -8,31 +8,46 @@ var Product = require ("./models/product");
 var faker = require("faker");
 
 
-function cleanDB(){
+function cleanDB(config){
+    if (config.users === true) {
+        cleanUsers(config);
+    }
+    if (config.products === true){
+        cleanProducts(config);
+    }
+}
+    
+function cleanUsers (config){
     // Remove all Users
-    // User.remove({}, function(err){
-    //     if (err){
-    //         console.log(err);
-    //     } else {
-    //         console.log("Removed Users");
-    //     };
-    //     })
+    User.remove({}, function(err){
+        if (err){
+            console.log(err);
+        } else {
+            if (config.feedback === true){
+                console.log('Removed Users'); 
+            }
+        }
+    });
+}
+
+function cleanProducts (config){
     // Remove all Products
     Product.remove({}, function(err){
         if (err){
             console.log(err);
         } else {
-            console.log("Removed Items");
-        };
-        })
-        
-    };
+            if (config.feedback === true){
+                console.log('Removed Products'); 
+            }
+        }
+    });    
+}
 
-function seedDB(){
+function seedDB(config){
 
-cleanDB();
+cleanDB(config);
     // seed the database with 100 products using faker
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < config.quantity; i++){
         var productSeed = new Object();
         
         productSeed.color = faker.commerce.color();
@@ -43,10 +58,8 @@ cleanDB();
         productSeed.productDescription = faker.lorem.paragraph();
         productSeed.productName = productSeed.productAdjective + ' ' + productSeed.productMaterial + ' ' + faker.commerce.product();
         var photoroll =  (Math.random() * (10 - 0) + 0).toFixed(0);
-        console.log(photoroll + '-----------------------------------------------------');
         switch(photoroll) {
             case '0':
-                console.log('switch hit 0');
                 productSeed.imageUrl = '/img/placeholder-dgreen.png';
                 break;
             case '1':
@@ -62,7 +75,6 @@ cleanDB();
                 productSeed.imageUrl = '/img/placeholder-orange.png';
                 break;
             case '5':
-                console.log('switch hit 5');
                 productSeed.imageUrl = '/img/placeholder-pink.png';
                 break;
             case '6':
@@ -78,8 +90,6 @@ cleanDB();
                 productSeed.imageUrl = '/img/placeholder-yellow.png';
                 break;
             default:
-            console.log('switch hit default');
-            console.log(photoroll)
                 productSeed.imageUrl = '/img/placeholder-dgreen.png' ;
                 break;
         }
@@ -88,10 +98,13 @@ cleanDB();
             if(err){
                 console.log(err);
             } else {
-                console.log("added a product : " + product);
             }
-        })
+        });
     }
+    if (config.feedback === true){
+        console.log('seed finished'); 
+    }
+
 }
 module.exports = seedDB;
 
