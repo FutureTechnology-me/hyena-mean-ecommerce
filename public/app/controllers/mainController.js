@@ -57,11 +57,11 @@ commerceApp.controller('mainController', ['$scope', '$location','$http','$log','
       shareService.carttax = (ngCart.getSubTotal() * 0.075).toFixed(2);
     };
     
-    
+    //random shipping for demo deployment
     $scope.randomShipping = function(){
         //return a random number between 5 and 50
       return Math.random() * (50.00 - 5.00) + 5.00;
-    }
+    };
     
     // get cart details any time the mainController is active
     $scope.cartDetails();

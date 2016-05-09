@@ -33,20 +33,21 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
     this.toRegister = function(){
         $location.path('/register');
     };
-        // view product details 
-        this.details = function(product){
-            //use the product id as the route parameter in /details/:id
-            $location.path('/details/' + product._id);
-        };
-            // view shopping cart
-        this.toCart = function(){
-            $location.path('/cart');
-        };
-        
-        //view our ecommerce homepage (in this case the default route)
-        this.goShopping = function(){
-            $location.path('/');
-        };    
+    // commerce functions
+    // view product details 
+    this.details = function(product){
+        //use the product id as the route parameter in /details/:id
+        $location.path('/details/' + product._id);
+    };
+        // view shopping cart
+    this.toCart = function(){
+        $location.path('/cart');
+    };
+    
+    //view our ecommerce homepage (in this case the default route)
+    this.goShopping = function(){
+        $location.path('/');
+    };    
     // auth routes
     
     // log the user out, set displayLogin to true, redirect to home page
@@ -54,18 +55,19 @@ commerceApp.service('shareService',['$location', '$http', '$log', function($loca
         $http.get('/logout');
         $location.path('/');
     };
-
+    
+    //DEBUG
     // call authentication debug route
-    this.secret = function(){
-        $http({
-          method: 'GET',
-          url: '/secret'
-        }).then(function successCallback(response) {
-            $log.info(response.data);
-          }, function errorCallback(response) {
-            $log.error(response);
-          });
-    };
+    // this.secret = function(){
+    //     $http({
+    //       method: 'GET',
+    //       url: '/secret'
+    //     }).then(function successCallback(response) {
+    //         $log.info(response.data);
+    //       }, function errorCallback(response) {
+    //         $log.error(response);
+    //       });
+    // };
 
     
 }]);
