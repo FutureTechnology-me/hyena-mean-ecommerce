@@ -17,15 +17,15 @@ var ejs             = require('ejs'),
 //Development configuration
 var devMode = {
     // set true to enable dev functions
-    active      : true,
+    active      : false,
     // set up properties of seedConfig
     seedConfig  : {
         // set true to run seed script on startup 
-        active  : true,
+        active  : false,
         // delete all users
         users   : false,
         // delete all products
-        products: true,
+        products: false,
         // how many products to seed
         quantity: 100,
         // log events
@@ -39,7 +39,7 @@ var devMode = {
        // target user id
        id       : '',
        // desired group name - standard: Admin
-       group    : ''
+       group    : 'Admin'
     }
 };
 
